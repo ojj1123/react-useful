@@ -6,7 +6,8 @@
   "author": "Jeongjin Oh <rojay.developer@gmail.com>",
   "module": "true",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "keywords": [
     "typescript",
@@ -25,6 +26,11 @@
     "url": "https://github.com/ojj1123/react-useful/issues"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "prettier": "^3.2.5"
   }
 }
