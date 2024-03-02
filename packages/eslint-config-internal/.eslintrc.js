@@ -12,6 +12,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:prettier/recommended',
   ],
+  ignorePatterns: ['./node_modules', './dist', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'],
   overrides: [
     {
       env: {
