@@ -1,0 +1,27 @@
+{
+  "name": "react-useful",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A library for archiving the useful react components, hooks or utils so on.",
+  "author": "Jeongjin Oh <rojay.developer@gmail.com>",
+  "module": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "react",
+    "hooks"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ojj1123/react-useful"
+  },
+  "bugs": {
+    "url": "https://github.com/ojj1123/react-useful/issues"
+  }
+}
