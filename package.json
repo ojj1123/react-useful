@@ -4,7 +4,6 @@
   "private": true,
   "description": "A library for archiving the useful react components, hooks or utils so on.",
   "author": "Jeongjin Oh <rojay.developer@gmail.com>",
-  "module": "true",
   "scripts": {
     "lint": "eslint .",
     "format": "prettier --write ."
