@@ -10,6 +10,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:import/recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:prettier/recommended',
   ],
   ignorePatterns: ['./node_modules', './dist', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'],
@@ -54,5 +56,19 @@ module.exports = {
       },
     ],
     'import/no-default-export': 'error',
+    'react/jsx-curly-brace-presence': [
+      'error',
+      {
+        props: 'never',
+        children: 'never',
+      },
+    ],
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'function-declaration',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
   },
 }
