@@ -4,7 +4,7 @@ module.exports = {
   ignorePatterns: ['./coverage'],
   overrides: [
     {
-      files: ['*.test.ts'],
+      files: ['**/*.test.ts'],
       plugins: ['jest'],
       extends: ['plugin:jest/recommended'],
       env: {
