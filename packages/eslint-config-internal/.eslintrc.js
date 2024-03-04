@@ -1,5 +1,5 @@
 module.exports = {
-  root: true,
+  root: false,
   env: {
     browser: true,
     es2021: true,
@@ -7,31 +7,46 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-type-checked',
+    'plugin:@typescript-eslint/strict-type-checked',
+    'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:react-hooks/recommended',
-    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['./node_modules', './dist', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'],
-  overrides: [
-    {
-      env: {
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
-      },
-    },
+  plugins: ['@typescript-eslint', 'react', 'simple-import-sort', 'eslint-plugin-import'],
+  ignorePatterns: [
+    'node_modules',
+    'dist',
+    '.eslintrc.*',
+    'pnpm-lock.yaml',
+    'pnpm-workspace.yaml',
+    '*.config.*',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: ['./tsconfig.json'],
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
   rules: {
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
@@ -71,4 +86,15 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
 }
