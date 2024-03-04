@@ -1,5 +1,5 @@
 module.exports = {
-  root: true,
+  root: false,
   env: {
     browser: true,
     es2021: true,
@@ -7,31 +7,34 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['./node_modules', './dist', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'],
-  overrides: [
-    {
-      env: {
-        node: true,
+  plugins: ['@typescript-eslint', 'react', 'simple-import-sort', 'eslint-plugin-import'],
+  ignorePatterns: [
+    'node_modules',
+    'dist',
+    '.eslintrc.*',
+    'pnpm-lock.yaml',
+    'pnpm-workspace.yaml',
+    '*.config.*',
+  ],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
-  ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
@@ -71,4 +74,25 @@ module.exports = {
       },
     ],
   },
+  // Limit TypeScript linting to TS/TSX
+  // https://github.com/typescript-eslint/typescript-eslint/issues/1928
+  overrides: [
+    {
+      files: ['**/*.{ts,tsx}'],
+      extends: [
+        'plugin:@typescript-eslint/recommended-type-checked',
+        'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+      ],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: ['./tsconfig.json'],
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+  ],
 }

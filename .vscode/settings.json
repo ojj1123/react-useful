@@ -1,0 +1,27 @@
+{
+  "search.exclude": {
+    "public/**": true,
+    "node_modules/**": true,
+    "coverage/**": true,
+    "dist/**": true,
+    "generated/**": true,
+    ".cache/**": true,
+    ".git/**": true,
+    "**/package-lock.json": true,
+    "**/pnpm-lock.yaml": true
+  },
+  "eslint.workingDirectories": [
+    {
+      "directory": "packages/eslint-config-internal",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "packages/react",
+      "changeProcessCWD": true
+    }
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll": "explicit"
+  }
+}
