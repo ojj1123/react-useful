@@ -7,9 +7,6 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended-type-checked',
-    'plugin:@typescript-eslint/strict-type-checked',
-    'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:react-hooks/recommended',
     'plugin:import/typescript',
     'plugin:react/recommended',
@@ -25,15 +22,6 @@ module.exports = {
     'pnpm-workspace.yaml',
     '*.config.*',
   ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json'],
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
   settings: {
     react: {
       version: 'detect',
@@ -86,14 +74,24 @@ module.exports = {
       },
     ],
   },
+  // Limit TypeScript linting to TS/TSX
+  // https://github.com/typescript-eslint/typescript-eslint/issues/1928
   overrides: [
     {
-      env: {
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs}'],
+      files: ['**/*.{ts,tsx}'],
+      extends: [
+        'plugin:@typescript-eslint/recommended-type-checked',
+        'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+      ],
+      parser: '@typescript-eslint/parser',
       parserOptions: {
-        sourceType: 'script',
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: ['./tsconfig.json'],
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
   ],
