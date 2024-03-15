@@ -1,33 +1,54 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
-export interface UseInfiniteFetchArg<TDataArray, TPageParam> {
-  queryFn: ({ pageParam }: { pageParam: TPageParam }) => Promise<TDataArray>
+export interface UseInfiniteFetchOptions<TQueryFnData = unknown, TPageParam = unknown> {
+  queryFn: ({ pageParam }: { pageParam: TPageParam }) => Promise<TQueryFnData>
   initialPageParam: TPageParam
   getNextPageParam: ({
     pageParam,
     lastPage,
   }: {
     pageParam: TPageParam
-    lastPage: TDataArray
+    lastPage: TQueryFnData
   }) => TPageParam | undefined
 }
 
-export interface UseInfniteFetchReturn<TDataArray> {
-  fetchNextPage: () => Promise<unknown>
-  data?: TDataArray
-  error?: unknown
-  loading: boolean
+export interface UseInfniteFetchBaseResult<TQueryFnData = unknown, TError = unknown> {
+  data: { pages: TQueryFnData[] } | undefined
+  error: TError | null
+  isLoading: boolean
   hasNextPage: boolean
+  fetchNextPage: () => Promise<void>
 }
+export interface UseInfiniteFetchLoadingResult<TQueryFnData = unknown, TError = unknown>
+  extends UseInfniteFetchBaseResult<TQueryFnData, TError> {
+  data: undefined
+  error: null
+  isLoading: true
+}
+export interface UseInfiniteFetchErrorResult<TQueryFnData = unknown, TError = unknown>
+  extends UseInfniteFetchBaseResult<TQueryFnData, TError> {
+  data: undefined
+  error: TError
+  isLoading: false
+}
+export interface UseInfiniteFetchSuccessResult<TQueryFnData = unknown, TError = unknown>
+  extends UseInfniteFetchBaseResult<TQueryFnData, TError> {
+  data: { pages: TQueryFnData[] }
+  error: null
+  isLoading: false
+}
+export type UseInfiniteFetchResult<TQueryFnData = unknown, TError = unknown> =
+  | UseInfiniteFetchLoadingResult<TQueryFnData, TError>
+  | UseInfiniteFetchErrorResult<TQueryFnData, TError>
+  | UseInfiniteFetchSuccessResult<TQueryFnData, TError>
 
-export function useInfiniteFetch<TData, TPageParam = unknown>({
-  queryFn,
-  initialPageParam,
-  getNextPageParam,
-}: UseInfiniteFetchArg<TData[], TPageParam>): UseInfniteFetchReturn<TData[]> {
-  const [data, setData] = useState<TData[]>()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<unknown>()
+export function useInfiniteFetch<TQueryFnData, TError = unknown, TPageParam = unknown>(
+  options: UseInfiniteFetchOptions<TQueryFnData, TPageParam>,
+): UseInfiniteFetchResult<TQueryFnData, TError> {
+  const { queryFn, initialPageParam, getNextPageParam } = options
+  const [data, setData] = useState<{ pages: TQueryFnData[] }>()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<TError | null>(null)
   const [hasNextPage, setHasNextPage] = useState(true)
   const queryFnRef = useRef(queryFn)
   const nextPageParamRef = useRef<TPageParam | undefined>(initialPageParam)
@@ -37,7 +58,7 @@ export function useInfiniteFetch<TData, TPageParam = unknown>({
     if (!nextPageParamRef.current) {
       return
     }
-    setLoading(true)
+    setIsLoading(true)
     try {
       const res = await queryFnRef.current({ pageParam: nextPageParamRef.current })
       nextPageParamRef.current = getNextPageParamRef.current({
@@ -47,17 +68,18 @@ export function useInfiniteFetch<TData, TPageParam = unknown>({
       if (!nextPageParamRef.current) {
         setHasNextPage(false)
       }
-      setData((prev) => (prev ?? []).concat(res))
+      const newData = { pages: [res] }
+      setData((prev) => (prev ? { ...prev, pages: prev.pages.concat(res) } : newData))
       setError(null)
     } catch (error) {
-      setError(error)
+      setError(null)
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }, [])
 
-  return useMemo(
-    () => ({ fetchNextPage, data, loading, error, hasNextPage }),
-    [fetchNextPage, data, loading, error, hasNextPage],
-  )
+  return { fetchNextPage, data, isLoading, error, hasNextPage } as UseInfiniteFetchResult<
+    TQueryFnData,
+    TError
+  >
 }
