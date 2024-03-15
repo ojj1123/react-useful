@@ -2,7 +2,7 @@
   "name": "eslint-config-internal",
   "version": "1.0.0",
   "private": true,
-  "description": "The only eslint config for react-useful",
+  "description": "The only eslint config for reactify-hub",
   "author": "Jeongjin Oh <rojay.developer@gmail.com>",
   "scripts": {},
   "keywords": [],
