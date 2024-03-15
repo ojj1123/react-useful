@@ -1,5 +1,5 @@
 {
-  "name": "react-useful",
+  "name": "reactify-hub",
   "version": "1.0.0",
   "private": false,
   "description": "A library for archiving the useful react components, hooks or utils so on.",
@@ -19,10 +19,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ojj1123/react-useful"
+    "url": "https://github.com/ojj1123/reactify-hub"
   },
   "bugs": {
-    "url": "https://github.com/ojj1123/react-useful/issues"
+    "url": "https://github.com/ojj1123/reactify-hub/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
