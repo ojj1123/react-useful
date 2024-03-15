@@ -1,8 +1,8 @@
 {
   "name": "eslint-config-internal",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
-  "description": "The only eslint config for reactify-hub",
+  "description": "The only eslint config for reactify",
   "author": "Jeongjin Oh <rojay.developer@gmail.com>",
   "scripts": {},
   "keywords": [],

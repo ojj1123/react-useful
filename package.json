@@ -1,9 +1,9 @@
 {
-  "name": "reactify-hub",
-  "version": "1.0.0",
+  "name": "reactify",
   "private": true,
   "description": "A library for archiving the useful react components, hooks or utils so on.",
   "author": "Jeongjin Oh <rojay.developer@gmail.com>",
+  "packageManager": "pnpm@8.15.4",
   "scripts": {
     "lint": "eslint .",
     "format": "prettier --write ."
@@ -19,10 +19,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ojj1123/reactify-hub"
+    "url": "https://github.com/ojj1123/reactify"
   },
   "bugs": {
-    "url": "https://github.com/ojj1123/reactify-hub/issues"
+    "url": "https://github.com/ojj1123/reactify/issues"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

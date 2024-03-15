@@ -1,17 +1,33 @@
 {
-  "name": "reactify-hub",
-  "version": "1.0.0",
+  "name": "@reactify/react",
+  "version": "0.0.0",
   "private": false,
   "description": "A library for archiving the useful react components, hooks or utils so on.",
   "author": "Jeongjin Oh <rojay.developer@gmail.com>",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "lint": "eslint './src/**/*.{ts,tsx}' && tsc --noEmit",
     "test": "jest"
   },
   "keywords": [
-    "typescript",
     "react",
-    "hooks"
+    "hooks",
+    "components",
+    "vite"
   ],
   "license": "MIT",
   "engines": {
@@ -19,10 +35,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ojj1123/reactify-hub"
+    "url": "https://github.com/ojj1123/reactify",
+    "directory": "packages/react"
   },
   "bugs": {
-    "url": "https://github.com/ojj1123/reactify-hub/issues"
+    "url": "https://github.com/ojj1123/reactify/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
